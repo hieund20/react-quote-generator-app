@@ -2,3 +2,32 @@
     font-family: Raleway;
     src: local("../fonts/Raleway"), url("../fonts/Raleway/static/Raleway-Regular.ttf") format("truetype");
 }
+
+.random {
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 120%;
+    color: #4f4f4f;
+
+    float: right;
+    margin-right: 100px;
+    margin-top: 31px;
+    margin-bottom: 100px;
+    &-text {
+        margin-right: 5px;
+        &:hover {
+            color: #111010;
+        }
+    }
+    & > .material-icons {
+        position: relative;
+        top: 7px;
+        bottom: 5px;
+        cursor: pointer;
+        &:hover {
+            color: #111010;
+        }
+    }
+}
