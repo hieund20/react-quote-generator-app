@@ -37,13 +37,17 @@ function Quote(props) {
         <div className="container">
             {
                 quoteList.length > 0 &&
-                quoteList.map(quoteItem => (
-                    <div className="quote">
-                        <blockquote>
-                            {`"${quoteItem.quoteText}"`}
-                        </blockquote>
-                    </div>
-                ))
+                <div>
+                    <span className="author">{quote.quoteAuthor}</span>
+                    {quoteList.map(quoteItem => (
+                        <div className="quote">
+                            <blockquote>
+                                {`"${quoteItem.quoteText}"`}
+                            </blockquote>
+                        </div>
+                    ))
+                    }
+                </div>
             }
             {
                 quoteList.length === 0 &&
