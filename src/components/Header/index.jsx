@@ -4,11 +4,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 Header.propTypes = {
-    onRandom: PropTypes.func
+    onRandom: PropTypes.func,
 };
 
 Header.defaultProps = {
-    onRandom: null
+    onRandom: null,
 }
 
 function Header(props) {

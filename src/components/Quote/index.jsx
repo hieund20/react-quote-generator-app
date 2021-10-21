@@ -1,35 +1,37 @@
 import './style.scss';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 Quote.propTypes = {
     quote: PropTypes.object,
+    quoteList: PropTypes.array,
+    pagination: PropTypes.object,
+    onShowQuotes: PropTypes.func,
+    onPageChange: PropTypes.func
 };
 
 Quote.defaultProps = {
     quote: null,
+    quoteList: [],
+    pagination: null,
+    onShowQuotes: null,
+    onPageChange: null
 }
 
 function Quote(props) {
-    const { quote } = props;
-    const [quoteList, setQuoteList] = useState([]);
+    const { quote, quoteList, pagination, onShowQuotes, onPageChange } = props;
+    const { currentPage, totalPages } = pagination;
 
-    useEffect(() => {
-        setQuoteList([]);
-    }, [quote]);
-
-    async function fetchQuoteList() {
-        try {
-            const requestUrl = `https://quote-garden.herokuapp.com/api/v3/quotes?author=${quote.quoteAuthor}`;
-            const response = await fetch(requestUrl);
-            const responseJSON = await response.json();
-
-            console.log('author ', responseJSON.data);
-            setQuoteList(responseJSON.data);
+    function handlePageChange(newPage) {
+        if (onPageChange !== null) {
+            onPageChange(newPage);
         }
-        catch (error) {
-            console.log(error.message);
+    }
+
+    function handleShowQuotes() {
+        if (onShowQuotes !== null) {
+            onShowQuotes()
         }
     }
 
@@ -47,6 +49,25 @@ function Quote(props) {
                         </div>
                     ))
                     }
+                    <div className="pagination">
+                        <button
+                            className="pagination-pre"
+                            onClick={() => handlePageChange(currentPage - 1)}
+                            disabled={currentPage === 1}
+                        >
+                            <span class="material-icons">arrow_back</span>
+                        </button>
+                        <div className="pagination-paging">
+                            <span>{`${currentPage} of ${totalPages}`}</span>
+                        </div>
+                        <button
+                            className="pagination-next"
+                            onClick={() => handlePageChange(currentPage + 1)}
+                            disabled={currentPage === totalPages}
+                        >
+                            <span class="material-icons">arrow_forward</span>
+                        </button>
+                    </div>
                 </div>
             }
             {
@@ -61,7 +82,7 @@ function Quote(props) {
                 quoteList.length === 0 &&
                 <div
                     className="quotes"
-                    onClick={fetchQuoteList}>
+                    onClick={() => handleShowQuotes()} >
                     <h3 className="quotes-author">{quote.quoteAuthor}</h3>
                     <span className="quotes-genre">{quote.quoteGenre}</span>
                     <span className="material-icons">trending_flat</span>
