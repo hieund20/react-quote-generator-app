@@ -49,25 +49,27 @@ function Quote(props) {
                         </div>
                     ))
                     }
-                    <div className="pagination">
-                        <button
-                            className="pagination-pre"
-                            onClick={() => handlePageChange(currentPage - 1)}
-                            disabled={currentPage === 1}
-                        >
-                            <span class="material-icons">arrow_back</span>
-                        </button>
-                        <div className="pagination-paging">
-                            <span>{`${currentPage} of ${totalPages}`}</span>
+                    {totalPages > 1 &&
+                        <div className="pagination">
+                            <button
+                                className="pagination-pre"
+                                onClick={() => handlePageChange(currentPage - 1)}
+                                disabled={currentPage === 1}
+                            >
+                                <span class="material-icons">arrow_back</span>
+                            </button>
+                            <div className="pagination-paging">
+                                <span>{`${currentPage} of ${totalPages}`}</span>
+                            </div>
+                            <button
+                                className="pagination-next"
+                                onClick={() => handlePageChange(currentPage + 1)}
+                                disabled={currentPage === totalPages}
+                            >
+                                <span class="material-icons">arrow_forward</span>
+                            </button>
                         </div>
-                        <button
-                            className="pagination-next"
-                            onClick={() => handlePageChange(currentPage + 1)}
-                            disabled={currentPage === totalPages}
-                        >
-                            <span class="material-icons">arrow_forward</span>
-                        </button>
-                    </div>
+                    }
                 </div>
             }
             {
